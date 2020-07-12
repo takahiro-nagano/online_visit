@@ -25,3 +25,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/db/*
+
+db/mysql/volumes/ib_buffer_pool
+db/mysql/volumes/ib_logfile0
+db/mysql/volumes/ibdata1
