@@ -12,4 +12,59 @@
 
 ActiveRecord::Schema.define(version: 2020_08_03_215712) do
 
+  create_table "information", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "news"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "calendar_day"
+    t.date "reservation_time"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "resident_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "resident_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resident_id"], name: "index_resident_users_on_resident_id"
+    t.index ["user_id"], name: "index_resident_users_on_user_id"
+  end
+
+  create_table "residents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.integer "floor", null: false
+    t.string "charge_worker"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password", null: false
+    t.string "password_digest", null: false
+    t.string "room_name"
+    t.string "admin", default: "0"
+    t.string "boolean", default: "0"
+    t.string "floor_authority", default: "0"
+    t.string "resident_name1"
+    t.string "resident_name2"
+    t.string "phone"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "reservations", "users"
+  add_foreign_key "resident_users", "residents"
+  add_foreign_key "resident_users", "users"
 end
